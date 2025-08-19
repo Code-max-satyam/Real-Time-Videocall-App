@@ -1,25 +1,19 @@
 
 import './App.css'
-import {createBrowserRouter,RouterProvider} from "react-router-dom"
+import { HashRouter, Routes, Route } from "react-router-dom"
 import Homepage from "./components/Homepage"
-import Videopage from "./components/Videopage";
-function App() {
-const router = createBrowserRouter([
-  {
-    path:"/",
-    element:<Homepage/>
-  },
-  {
-    path:"/room/:id",
-    element:<Videopage/>
-  }
-])
+import Videopage from "./components/Videopage"
 
+function App() {
   return (
-   <div className='App'>
- <RouterProvider router={router}/>
-   </div>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/room/:id" element={<Videopage />} />
+      </Routes>
+    </HashRouter>
   )
 }
 
 export default App
+
