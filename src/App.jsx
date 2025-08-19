@@ -1,8 +1,8 @@
 
 import './App.css'
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
-import Homepage from './com/Homepage'
-import Videopage from './com/Videopage'
+import Homepage from "./components/Homepage"
+import Videopage from "./components/Videopage";
 function App() {
 const router = createBrowserRouter([
   {
