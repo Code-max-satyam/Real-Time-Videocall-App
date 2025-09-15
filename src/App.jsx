@@ -1,28 +1,28 @@
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import Homepage from "./components/Homepage";
+import Videopage from "./components/Videopage";
 
-import './App.css'
-import { createHashRouter, RouterProvider } from "react-router-dom"
-import Homepage from "./components/Homepage"
-import Videopage from "./components/Videopage"
-
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <Homepage />
+    element: <Homepage />,
   },
   {
     path: "/room/:id",
-    element: <Videopage />
-  }
-])
+    element: <Videopage />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" replace />, // ✅ Redirect unknown paths to homepage
+  },
+]);
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <RouterProvider router={router} />
     </div>
-  )
+  );
 }
 
-export default App
-
-
+export default App;

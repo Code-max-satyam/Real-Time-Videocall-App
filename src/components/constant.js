@@ -1,2 +1,2 @@
-export const APP_ID=587312310
-export const SERVER_SECRET="c0f96b064df9d252c834af415a4064ca"
+export const APP_ID= Number (import.meta.env.VITE_APP_ID);
+export const SERVER_SECRET=import.meta.env.VITE_SERVER_SECRET;

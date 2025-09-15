@@ -1,46 +1,42 @@
-import React from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { APP_ID, SERVER_SECRET } from './constant';
 
 const Videopage = () => {
   const { id } = useParams();
   const roomID = id;
+  const containerRef = useRef(null);
 
-  const location = useLocation();
-  const userName = location.state?.userName || "Guest"; // 👈 yaha se naam aayega
-
-  let myMeeting = async (element) => {
-    const appID = APP_ID;
+  useEffect(() => {
+    const appID = Number(APP_ID); // 👈 Make sure it's a number
     const serverSecret = SERVER_SECRET;
 
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
       roomID,
-      Date.now().toString(),
-      userName   // ✅ ab har user ka alag naam hoga
+      Date.now().toString(), // unique user ID
+      "your_name" // ✅ Optionally replace with dynamic user name
     );
 
     const zp = ZegoUIKitPrebuilt.create(kitToken);
+
     zp.joinRoom({
-      container: element,
+      container: containerRef.current,
       sharedLinks: [
         {
           name: 'Copy link',
-          url:
-            window.location.protocol + '//' +
-            window.location.host + window.location.pathname +
-            '?roomID=' + roomID,
+          url: `${window.location.protocol}//${window.location.host}/room/${roomID}`,
         },
       ],
       scenario: {
         mode: ZegoUIKitPrebuilt.OneONoneCall,
       },
     });
-  };
+  }, [roomID]);
 
-  return <div ref={myMeeting}></div>;
+  return <div ref={containerRef} />;
 };
 
 export default Videopage;
